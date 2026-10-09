@@ -236,7 +236,7 @@ function home(){
   <h2>${MODS[m].name}</h2><p>${MODS[m].desc}</p>
   <div class="stats"><span><b>${BANK[m].length}</b>secciones</span><span><b>${n}</b>preguntas</span></div>
   <span class="go">Ver detalles del cargo</span></button>`}).join('')}</div>
- <div class="foot"><span>Las secciones, preguntas y opciones aparecen en orden distinto para cada aspirante.</span><button class="link" id="adm">Administrador</button></div></div>`;
+ <div class="foot"><span></span><button class="link" id="adm">Administrador</button></div></div>`;
  app.querySelectorAll('.mod').forEach(b=>b.onclick=()=>intro(b.dataset.m));
  $('#adm').onclick=adminLogin;
 }
