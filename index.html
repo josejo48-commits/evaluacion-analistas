@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Evaluación de Analistas · Laboratorios OLEOFLORES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&family=Fraunces:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#08120d;--ink:#eef3ee;--mute:#9fb3a5;--line:rgba(255,255,255,.12);--glass:rgba(255,255,255,.045);--fq:#4fbf7f;--fq2:#1a5236;--bio:#e0a83a;--bio2:#7a4f10;--acc:var(--fq);--err:#ff8a7a;
+--disp:'Sora',system-ui,sans-serif;--body:'Plus Jakarta Sans',system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+body{background:radial-gradient(1100px 520px at 10% -10%,#1f5c3a 0%,transparent 60%),radial-gradient(900px 480px at 105% 115%,#5e3f0e 0%,transparent 55%),var(--bg);background-attachment:fixed;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+body.m-bio{--acc:var(--bio)}
+.wrap{max-width:980px;margin:0 auto;padding:40px 22px 60px}
+h1,h2,h3{font-family:var(--disp);font-weight:600;letter-spacing:-.015em;margin:0}
+.brand{display:flex;align-items:center;gap:12px;color:var(--mute);font-size:14px;margin-bottom:46px}
+.brand .dot{width:34px;height:34px;border-radius:50%;background:conic-gradient(from 200deg,#4fbf7f,#e0a83a,#4fbf7f);display:grid;place-items:center}
+.brand .dot::after{content:"";width:22px;height:22px;border-radius:50%;background:var(--bg)}
+.hero h1{font-size:clamp(34px,6vw,56px);line-height:1.05;max-width:14ch}
+.hero p{color:var(--mute);font-size:17px;max-width:52ch;line-height:1.6;margin:18px 0 40px}
+.mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.mod{position:relative;overflow:hidden;text-align:left;border-radius:24px;padding:32px 30px;color:inherit;font:inherit;cursor:pointer;isolation:isolate;border:1px solid transparent;
+background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015) 45%) padding-box,linear-gradient(160deg,var(--c1),rgba(255,255,255,.06) 40%,rgba(255,255,255,.04) 70%,var(--c2)) border-box;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 60px -30px rgba(0,0,0,.8);backdrop-filter:blur(14px);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.mod.fq{--c1:rgba(79,191,127,.75);--c2:rgba(79,191,127,.15);--gl:rgba(79,191,127,.35)}
+.mod.bio{--c1:rgba(240,190,90,.8);--c2:rgba(224,168,58,.15);--gl:rgba(224,168,58,.35)}
+.mod::before{content:"";position:absolute;z-index:-1;width:320px;height:320px;top:-160px;right:-120px;border-radius:50%;background:radial-gradient(circle,var(--gl),transparent 70%);opacity:.55;transition:opacity .5s,transform .6s}
+.mod::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+.mod:hover,.mod:focus-visible{transform:translateY(-8px);outline:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 40px 70px -28px var(--gl)}
+.mod:hover::before{opacity:1;transform:scale(1.15)}
+.mod .sh{position:absolute;inset:0;z-index:-1;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.06) 50%,transparent 58%);background-size:260% 100%;animation:sh 8s linear infinite;pointer-events:none}
+.mod.bio .sh{animation-delay:4s}
+@keyframes sh{from{background-position:130% 0}to{background-position:-130% 0}}
+.ico{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;margin-bottom:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 28px -8px var(--gl)}
+.fq .ico{background:linear-gradient(145deg,#5fd393,#1d6a42)}.bio .ico{background:linear-gradient(145deg,#f5c45e,#8a5a12)}
+.mod h2{font-size:26px;margin-bottom:10px}
+.mod p{color:#b3c3b8;line-height:1.6;margin:0 0 26px;font-size:15px;max-width:38ch}
+.stats{display:flex;gap:0;margin-bottom:28px;font-size:13px;color:var(--mute)}
+.stats span{padding-right:22px;margin-right:22px;border-right:1px solid rgba(255,255,255,.1)}.stats span:last-child{border:0}
+.stats b{display:block;font-family:var(--disp);font-size:30px;font-weight:600;line-height:1.1;color:var(--ink)}
+.go{position:relative;overflow:hidden;display:inline-flex;font-weight:600;font-size:14px;padding:12px 22px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 10px 24px -10px var(--gl)}
+.fq .go{background:linear-gradient(180deg,#6bdc9c,#3fae6e);color:#05200f}.bio .go{background:linear-gradient(180deg,#f6c766,#d79a28);color:#2a1a02}
+.foot{margin-top:40px;color:#6f877a;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.link{background:none;border:none;color:#8aa395;font:inherit;font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.reg{max-width:560px;margin:4vh auto 0;text-align:center;position:relative;overflow:hidden;border-radius:28px;padding:44px 40px 38px;border:1px solid transparent;isolation:isolate;
+background:linear-gradient(170deg,rgba(255,255,255,.07),rgba(255,255,255,.015) 50%) padding-box,linear-gradient(170deg,var(--acc),rgba(255,255,255,.06) 45%,rgba(255,255,255,.03)) border-box;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 40px 80px -40px rgba(0,0,0,.9);backdrop-filter:blur(14px)}
+.reg::before{content:"";position:absolute;z-index:-1;width:380px;height:380px;left:50%;top:-230px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 45%,transparent),transparent 70%)}
+.reg .ico{margin:0 auto 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 14px 30px -10px color-mix(in srgb,var(--acc) 70%,transparent)}
+.m-fq .reg .ico{background:linear-gradient(145deg,#5fd393,#1d6a42)}.m-bio .reg .ico{background:linear-gradient(145deg,#f5c45e,#8a5a12)}
+.reg h2{font-size:32px;margin:12px 0 8px}
+.reg .sub{color:var(--mute);font-size:15px;margin:0 auto 30px;max-width:40ch;line-height:1.55}
+.reg .form{max-width:none;text-align:left;margin:0;gap:16px}
+.fld{position:relative}
+.fld svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#7f9585;pointer-events:none;transition:color .25s}
+.fld input{padding:16px 16px 16px 48px;border-radius:14px;background:rgba(0,0,0,.32);font-size:15.5px;transition:border-color .25s,box-shadow .25s,background .25s}
+.fld input::placeholder{color:#6f877a}
+.fld input:focus{outline:none;border-color:var(--acc);background:rgba(0,0,0,.42);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 18%,transparent)}
+.fld:focus-within svg{color:var(--acc)}
+.reg .btn{width:100%;padding:16px;font-size:16px;margin-top:6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 14px 30px -12px color-mix(in srgb,var(--acc) 80%,transparent)}
+.reg .back{margin-top:16px}
+.reg .msg{text-align:center}
+.note{display:flex;gap:8px;justify-content:center;align-items:center;color:#7f9585;font-size:13px;margin-top:22px}
+body.m-adm{--acc:#cfe3d6}
+.adm-ico{background:linear-gradient(145deg,#4fbf7f 0%,#2c6e4a 50%,#c08a24 100%)!important}
+.reg.adm{background:linear-gradient(170deg,rgba(255,255,255,.07),rgba(255,255,255,.015) 50%) padding-box,linear-gradient(120deg,#4fbf7f,rgba(255,255,255,.06) 45%,rgba(255,255,255,.04) 60%,#e0a83a) border-box}
+.reg.adm::before{background:radial-gradient(circle,rgba(79,191,127,.28),transparent 65%);opacity:.8}
+.reg.adm::after{content:'';position:absolute;z-index:-1;width:300px;height:300px;right:-140px;bottom:-160px;border-radius:50%;background:radial-gradient(circle,rgba(224,168,58,.25),transparent 65%)}
+.reg.adm .btn{background:linear-gradient(90deg,#5fd393,#e0a83a);color:#0a1a10}
+.fld .eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#7f9585;cursor:pointer;padding:6px;display:grid}
+.fld .eye svg{position:static;transform:none}
+.fld .eye:hover{color:var(--ink)}
+.reg.shake{animation:shk .4s}
+@keyframes shk{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.panel{background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:34px 30px;backdrop-filter:blur(10px)}
+.tag{display:inline-block;font-size:13px;color:var(--acc);border:1px solid var(--acc);border-radius:999px;padding:4px 12px;margin-bottom:18px}
+.intro h2{font-size:clamp(26px,4vw,36px);margin-bottom:22px;max-width:22ch}
+.intro p{font-size:16.5px;line-height:1.7;color:#d5e0d8;max-width:64ch;margin:0 0 16px}
+blockquote{margin:30px 0 32px;padding:0 0 0 20px;border-left:3px solid var(--acc);font-family:'Fraunces',serif;font-style:italic;font-size:clamp(22px,3.4vw,30px);line-height:1.3;color:#fff;max-width:26ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:999px;padding:13px 24px;font:600 15px var(--body);cursor:pointer;background:var(--acc);color:#0a1a10;transition:filter .2s,transform .2s}
+.btn:hover{filter:brightness(1.1)}.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:focus-visible,.opt:focus-within,input:focus-visible,textarea:focus-visible,.link:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.form{display:grid;gap:18px;max-width:520px;margin-top:10px}
+label.f span{display:block;font-size:14px;color:var(--mute);margin-bottom:7px}
+input,textarea,select{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;padding:13px 14px;color:var(--ink);font:15px var(--body)}
+textarea{min-height:120px;resize:vertical;line-height:1.55}
+.msg{color:var(--err);font-size:14px;min-height:20px}
+.top{position:sticky;top:0;z-index:5;background:rgba(8,18,13,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .in{max-width:980px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:16px;justify-content:space-between}
+.top .t{font-size:14px;color:var(--mute)}.top .t b{color:var(--ink);font-weight:600}
+.bar{height:4px;background:rgba(255,255,255,.08)}.bar i{display:block;height:4px;background:var(--acc);transition:width .5s}
+.sec h2{font-size:28px;margin:6px 0 28px}
+.sec .k{color:var(--acc);font-size:14px}
+.q{background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:24px 24px 22px;margin-bottom:16px}
+.q .n{font-size:13px;color:var(--mute);margin-bottom:8px}
+.q h3{font-family:var(--body);font-weight:600;font-size:17px;line-height:1.5;margin-bottom:16px;letter-spacing:0}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1px solid var(--line);border-radius:12px;margin-top:9px;cursor:pointer;transition:border-color .2s,background .2s;line-height:1.45}
+.opt:hover{border-color:rgba(255,255,255,.3)}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt .l{flex:0 0 26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;font-weight:600;color:var(--mute)}
+.opt.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,transparent)}
+.opt.on .l{background:var(--acc);color:#0a1a10;border-color:var(--acc)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.pic{text-align:center;background:rgba(0,0,0,.18);border:1px solid var(--line);border-radius:14px;padding:14px 10px}
+.pic svg{width:84px;height:84px;display:block;margin:0 auto 10px}
+.pic input{font-size:14px;padding:10px}
+.uni{display:grid;grid-template-columns:minmax(150px,1fr) 1.3fr;gap:10px 14px;align-items:center}
+.uni span{font-size:15px}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px}
+.done{text-align:center;padding:70px 26px}
+.done .seal{width:86px;height:86px;border-radius:50%;margin:0 auto 26px;display:grid;place-items:center;background:color-mix(in srgb,var(--acc) 18%,transparent);border:1px solid var(--acc)}
+.done h2{font-size:clamp(28px,5vw,42px);margin-bottom:14px}
+.done p{color:var(--mute);font-size:16px;max-width:46ch;margin:0 auto;line-height:1.6}
+.done.void{border-color:rgba(255,95,80,.55);background:linear-gradient(170deg,rgba(255,80,60,.14),rgba(255,255,255,.02) 55%)}
+.done.void .seal{background:rgba(255,80,60,.14);border-color:#ff5f50;box-shadow:0 0 0 10px rgba(255,80,60,.06),0 20px 50px -10px rgba(255,80,60,.5)}
+.done.void .k2{display:inline-block;font-size:13px;color:#ff8a7a;border:1px solid rgba(255,138,122,.6);border-radius:999px;padding:5px 14px;margin-bottom:16px}
+.done.void h2{color:#fff}
+.done.void .why{max-width:46ch;margin:22px auto 0;padding:16px 18px;border-radius:14px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.08);color:#d9c9c6;font-size:14.5px;line-height:1.6;text-align:left}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mute);font-weight:500}
+.tw{overflow-x:auto}
+.tabs{display:flex;gap:8px;margin:20px 0}
+.tabs button{border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);padding:9px 16px;font:500 14px var(--body);cursor:pointer}
+.tabs button.on{background:var(--ink);color:var(--bg)}
+.ok{color:#7fe0a5}.no{color:var(--err)}
+.det .q{padding:18px}
+.ans{background:rgba(0,0,0,.25);border-radius:10px;padding:12px;white-space:pre-wrap;line-height:1.5;margin:8px 0}
+.score{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--mute)}
+.score input{width:80px;padding:8px}
+.warnbox{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(3,8,5,.78);backdrop-filter:blur(8px)}
+.warnbox .card{max-width:420px;text-align:center;border-radius:24px;padding:34px 28px;background:#14130c;border:1px solid #e0a83a;box-shadow:0 30px 80px -20px rgba(224,168,58,.4)}
+.warnbox h3{font-size:22px;margin:14px 0 10px}.warnbox p{color:#d5d0c0;line-height:1.6;margin:0 0 22px}
+.warnbox .btn{background:#e0a83a;color:#2a1a02}
+.flag{display:inline-block;font-size:12px;padding:3px 9px;border-radius:999px;background:rgba(255,138,122,.15);color:var(--err)}
+.noselect{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}.noselect input,.noselect textarea{-webkit-user-select:text;user-select:text}
+.hidden{display:none!important}
+@media (max-width:600px){.wrap{padding:28px 16px 50px}.panel{padding:26px 18px}.q{padding:18px}.uni{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* ============ CONFIGURACIÓN ============ */
+// Pegue aquí la configuración de su proyecto Firebase. Si se deja vacía, los datos se guardan solo en este navegador (modo prueba).
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBuLVIt4Ixz18TPTZYIjHb1HScv-Wgvqmc",
+  authDomain: "evaluaciones--al-bd.firebaseapp.com",
+  projectId: "evaluaciones--al-bd",
+  storageBucket: "evaluaciones--al-bd.firebasestorage.app",
+  messagingSenderId: "257211880129",
+  appId: "1:257211880129:web:0f08c0c5aa7d6aec187a40"
+};
+const ADMIN_PASS = "1065595068";   // Cambie esta clave antes de publicar
+const MAX_SALIDAS = 3;              // La evaluación se cierra al llegar a este número de salidas
+const COLECCION = "evaluaciones_analistas";
+/* ======================================= */
+const BANK = {"fq": [{"title": "Seguridad y buenas prácticas", "questions": [{"id": "fq-s1-q1", "n": 1, "text": "¿Cuál de estas parejas de reactivos NO debe almacenarse juntas?", "type": "mc", "options": ["Yoduro de potasio y tiosulfato de sodio", "Nitrato de plata y alcohol", "Cloroformo y ciclohexano", "Hidróxido de sodio e hidróxido de potasio"], "correct": 1}, {"id": "fq-s1-q2", "n": 2, "text": "La información de peligros y manejo de un reactivo se consulta en:", "type": "mc", "options": ["La factura", "La ficha de datos de seguridad (FDS)", "El certificado de calibración", "El manual del equipo"], "correct": 1}, {"id": "fq-s1-q3", "n": 3, "text": "Escriba el nombre de cada pictograma.", "type": "pic", "items": ["inflamable", "comburente", "corrosivo", "toxico", "salud", "ambiente"]}, {"id": "fq-s1-q4", "n": 4, "text": "Durante el montaje de pérdidas en el Soxhlet con hexametileno se presenta un conato de incendio. ¿Cuál sería el procedimiento a seguir?", "type": "mc", "options": ["Retirar el balón con pinzas y llevarlo al lavaplatos", "Cortar la energía de la manta de calentamiento, dar la alarma y sofocar con extintor de CO₂ (fuego clase B)", "Usar de inmediato el extintor más cercano, sin importar el tipo", "Bajar la ventana de la cabina y esperar a que se consuma el solvente"], "correct": 1}, {"id": "fq-s1-q5", "n": 5, "text": "Se presenta un derrame de ácido acético glacial en el mesón. Explique paso a paso cómo usaría el kit de derrame.", "type": "open", "key": ""}, {"id": "fq-s1-q6", "n": 6, "text": "¿Cuál de estas medidas es la más eficaz para reducir la exposición a vapores de solventes en el laboratorio?", "type": "mc", "options": ["Usar el EPP (guantes, gafas, respirador)", "Capacitar al personal", "Trabajar en la cabina de extracción", "Colocar señalización de peligro"], "correct": 2}, {"id": "fq-s1-q7", "n": 7, "text": "Explique qué es la matriz de compatibilidad de sustancias químicas y para qué se usa en el laboratorio.", "type": "open", "key": ""}, {"id": "fq-s1-q8", "n": 8, "text": "Acaba de preparar la solución de tiosulfato de sodio 0,1 N para el índice de yodo. ¿Qué información debe llevar el rótulo del frasco y por qué es importante?", "type": "open", "key": ""}, {"id": "fq-s1-q9", "n": 9, "text": "Explique la diferencia entre peligro y riesgo con un ejemplo del laboratorio.", "type": "open", "key": ""}, {"id": "fq-s1-q10", "n": 10, "text": "En caso de un accidente en el laboratorio, ¿cuáles serían los pasos a seguir?", "type": "open", "key": ""}]}, {"title": "Balanza y material volumétrico", "questions": [{"id": "fq-s2-q1", "n": 1, "text": "El material más exacto para medir 25 ml es:", "type": "mc", "options": ["Probeta", "Beaker", "Pipeta aforada", "Erlenmeyer"], "correct": 2}, {"id": "fq-s2-q2", "n": 2, "text": "El balón aforado se utiliza para:", "type": "mc", "options": ["Calentar soluciones en la plancha", "Preparar soluciones a un volumen exacto", "Titular las muestras", "Almacenar las soluciones preparadas por largo tiempo"], "correct": 1}, {"id": "fq-s2-q3", "n": 3, "text": "Antes de pesar en la balanza analítica se debe:", "type": "mc", "options": ["Verificar nivelación y hacer tara", "Pesar la muestra caliente", "Abrir las puertas durante la pesada", "Limpiar el plato con agua"], "correct": 0}, {"id": "fq-s2-q4", "n": 4, "text": "Al titular con la bureta digital queda una burbuja de aire en la manguera del dispensador y sale durante la titulación. El volumen que muestra la pantalla resulta:", "type": "mc", "options": ["Menor que el realmente agregado", "Mayor que el realmente agregado, y el resultado sale alto", "Igual, porque la bureta digital lo compensa", "No afecta si se agita bien"], "correct": 1}, {"id": "fq-s2-q5", "n": 5, "text": "¿Por qué la cápsula se debe dejar enfriar en el desecador antes de pesarla?", "type": "open", "key": ""}, {"id": "fq-s2-q6", "n": 6, "text": "¿Qué revisaría en la bureta digital antes de iniciar las titulaciones del turno?", "type": "open", "key": ""}, {"id": "fq-s2-q7", "n": 7, "text": "¿Para que se estandariza una solución titulante y qué pasa con los resultados si no se hace?", "type": "open", "key": ""}, {"id": "fq-s2-q8", "n": 8, "text": "qué pasa con los resultados si se emplea una solución no estandarizada", "type": "open", "key": ""}, {"id": "fq-s2-q9", "n": 9, "text": "Dos analistas obtienen resultados diferentes de acidez en la misma muestra. ¿Qué revisaría de la marcha analítica y por qué?", "type": "open", "key": ""}, {"id": "fq-s2-q10", "n": 10, "text": "¿Por qué el material volumétrico no se seca en estufa a alta temperatura?", "type": "open", "key": ""}]}, {"title": "Análisis de proceso", "questions": [{"id": "fq-s3-q1", "n": 1, "text": "En el cálculo de AGL del aceite crudo de palma, expresado como % ácido palmítico, la constante que se usa es:", "type": "mc", "options": ["28,2", "25,6", "20,0", "56,1"], "correct": 1}, {"id": "fq-s3-q2", "n": 2, "text": "El perfil de sólidos (SFC) es un análisis clave para el control de calidad en:", "type": "mc", "options": ["La Extractora", "Las Margarinas", "El cargue a granel", "La recepción de fruto"], "correct": 1}, {"id": "fq-s3-q3", "n": 3, "text": "Cual es el principio de realizar de índice de peróxidos en los aceites", "type": "mc", "options": ["Medir el contenido de agua", "Determinar el grado de oxidación", "Medir la acidez libre", "Determinar el grado de insaturación"], "correct": 1}, {"id": "fq-s3-q4", "n": 4, "text": "Un DOBI bajo en el aceite crudo indica que:", "type": "mc", "options": ["El aceite será fácil de blanquear", "El aceite será difícil de blanquear en la Refinería", "El aceite tiene alta humedad", "El aceite tiene baja acidez"], "correct": 1}, {"id": "fq-s3-q5", "n": 5, "text": "El cold test se realiza a la oleína para verificar que:", "type": "mc", "options": ["No tenga humedad", "Permanezca clara, sin cristalizar, a baja temperatura", "Tenga el color adecuado", "No tenga peróxidos"], "correct": 1}, {"id": "fq-s3-q6", "n": 6, "text": "Cual es el especificación máxima de Acidez en el aceite crudo –CPO", "type": "open", "key": ""}, {"id": "fq-s3-q7", "n": 7, "text": "¿Para qué se corre un blanco en una titulación?", "type": "open", "key": ""}, {"id": "fq-s3-q8", "n": 8, "text": "¿Qué indica si obtienen resultados altos de contenido de aceite en fibra o nuez y por qué es importante para la planta?", "type": "open", "key": ""}, {"id": "fq-s3-q9", "n": 9, "text": "Si la humedad del aceite crudo sale alta, ¿qué consecuencias puede tener durante su almacenamiento?", "type": "open", "key": ""}, {"id": "fq-s3-q10", "n": 10, "text": "Una muestra de la Refinería sale fuera de especificación. ¿Qué haría antes de reportar el resultado?", "type": "open", "key": ""}]}, {"title": "Cálculo y registro", "questions": [{"id": "fq-s4-q1", "n": 1, "text": "Con 4,5 mL de NaOH 0,1 N en 5 g de muestra, el % de AGL como palmítico, % = (V × N × 25,6) / m, es:", "type": "mc", "options": ["1,15 %", "2,30 %", "4,60 %", "0,23 %"], "correct": 1}, {"id": "fq-s4-q2", "n": 2, "text": "El resultado de la acidez del CPO es 5,02 %. Este resultado cumple la especificación", "type": "mc", "options": ["Sí cumple, porque la diferencia es mínima", "No cumple la especificación", "Cumple si se redondea a un decimal", "Se reporta como 5,00 % para que cumpla"], "correct": 1}, {"id": "fq-s4-q3", "n": 3, "text": "Mencione las buenas practicas para el diligenciamiento de los formatos", "type": "open", "key": ""}, {"id": "fq-s4-q4", "n": 4, "text": "El cálculo de acidez da 3,4567 %. Reportado con dos decimales, el valor correcto es:", "type": "mc", "options": ["3,45 %", "3,46 %", "3,4 %", "3,457 %"], "correct": 1}, {"id": "fq-s4-q5", "n": 5, "text": "Si se comete un error al reportar un dato en el formato de analisis , se debe:", "type": "mc", "options": ["Borrar con corrector", "Tachar con una línea, escribir el dato correcto y firmar", "Arrancar la hoja", "Escribir encima"], "correct": 1}, {"id": "fq-s4-q6", "n": 6, "text": "Un resultado sale fuera de parámetros, describa paso a paso qué haría antes de reportarlo.", "type": "open", "key": ""}, {"id": "fq-s4-q7", "n": 7, "text": "¿Por qué es importante registrar el dato en el momento en que se obtiene y no al final del turno?", "type": "open", "key": ""}, {"id": "fq-s4-q8", "n": 8, "text": "Al terminar su turno, ¿qué información le debe dejar al analista que lo recibe?", "type": "open", "key": ""}, {"id": "fq-s4-q9", "n": 9, "text": "Un análisis de acidez por duplicado da 3,42 % y 3,48 %. ¿Qué valor reportaría y por qué?", "type": "open", "key": "Promedio 3,45 %, previa verificación de que la diferencia esté dentro de la repetibilidad del método"}, {"id": "fq-s4-q10", "n": 10, "text": "¿Qué datos mínimos debe tener un informe de análisis?", "type": "open", "key": ""}]}, {"title": "Procesos y toma de decisiones", "questions": [{"id": "fq-s5-q1", "n": 1, "text": "Llega una muestra de la Extractora y otra de despacho. ¿Cuál analiza primero?", "type": "mc", "options": ["La que llegó primero al laboratorio", "La de despacho, porque hay un vehículo esperando liberación", "La de la Extractora, porque es de proceso", "Las dos al tiempo, sin importar el orden"], "correct": 1}, {"id": "fq-s5-q2", "n": 2, "text": "Llega una muestra de oleína para cold test cuando falta media hora para terminar su turno, y el ensayo tarda más que eso. Lo correcto es:", "type": "mc", "options": ["Acortar el tiempo del ensayo para alcanzar a reportarlo", "Dejar la muestra para que el siguiente turno decida qué hacer con ella", "Iniciar el ensayo y dejarlo documentado en la entrega de turno para que lo termine el analista que llega", "Reportar el resultado del lote anterior, porque es el mismo producto"], "correct": 2}, {"id": "fq-s5-q3", "n": 3, "text": "Un operario de planta le pide cambiar un resultado porque \"seguro está mal\". Lo correcto es:", "type": "mc", "options": ["Cambiarlo para evitar problemas con la planta", "Realizar nuevamente el análisis; si se confirma, mantener el resultado e informar al coordinador", "Repetir hasta que dé lo que pide el operario", "Ignorarlo sin revisar nada"], "correct": 1}, {"id": "fq-s5-q4", "n": 4, "text": "Se le acaba el tiosulfato 0,1 N en medio del turno de la noche. Lo correcto es:", "type": "mc", "options": ["Usar un frasco de tiosulfato que encontró sin rótulo", "Preparar uno nuevo, estandarizarlo antes de usarlo y registrarlo", "Reportar los valores del turno anterior", "Usar el tiosulfato 0,01 N y multiplicar por diez"], "correct": 1}, {"id": "fq-s5-q5", "n": 5, "text": "Llega una muestra sin rótulo ni identificación. Lo correcto es:", "type": "mc", "options": ["Analizarla y asignarla a la planta más probable", "No analizarla hasta confirmar su identificación con quien la envió", "Desecharla", "Analizarla y reportarla como \"sin identificar\""], "correct": 1}, {"id": "fq-s5-q6", "n": 6, "text": "Tiene 8 muestras pendientes correspondientes al área de refinería, despachos y margarinas y faltan 2 horas para terminar el turno. ¿Cómo organizaría el trabajo y qué criterios usaría para priorizar?", "type": "open", "key": ""}, {"id": "fq-s5-q7", "n": 7, "text": "La acidez de un tanque de almacenamiento sube de forma repentina respecto a los días anteriores. ¿Qué haría y a quién informaría?", "type": "open", "key": ""}, {"id": "fq-s5-q8", "n": 8, "text": "Nota que su compañero de turno no está siguiendo el procedimiento de un análisis. ¿Cómo manejaría la situación?", "type": "open", "key": ""}, {"id": "fq-s5-q9", "n": 9, "text": "Un equipo se daña en el turno de la noche. ¿Qué haría para que el laboratorio siga respondiendo a las plantas?", "type": "open", "key": ""}, {"id": "fq-s5-q10", "n": 10, "text": "¿Cómo puede afectar a la planta un resultado mal reportado por el laboratorio? Dé un ejemplo.", "type": "open", "key": ""}, {"id": "fq-s5-q11", "n": 11, "text": "¿Por qué el material volumétrico no se seca en estufa a alta temperatura?", "type": "open", "key": ""}]}], "bio": [{"title": "Seguridad y buenas prácticas", "questions": [{"id": "bio-s1-q1", "n": 1, "text": "El nitrato de plata no se debe almacenar junto al alcohol porque:", "type": "mc", "options": ["El alcohol hace que el nitrato de plata se evapore", "El nitrato de plata es oxidante y puede reaccionar con sustancias orgánicas inflamables", "El alcohol cambia la concentración del nitrato de plata", "Ambos son ácidos fuertes"], "correct": 1}, {"id": "bio-s1-q2", "n": 2, "text": "Los vapores de solventes como el hexametileno, al ser más pesados que el aire, tienden a:", "type": "mc", "options": ["Subir y acumularse en el techo", "Acumularse en zonas bajas, como el piso y los desagües", "Dispersarse rápido sin riesgo", "Eliminarse con el aire acondicionado"], "correct": 1}, {"id": "bio-s1-q3", "n": 3, "text": "Escriba el nombre de cada pictograma.", "type": "pic", "items": ["explosivo", "inflamable", "comburente", "gas", "corrosivo", "toxico", "exclamacion", "salud", "ambiente"]}, {"id": "bio-s1-q4", "n": 4, "text": "En la ficha de datos de seguridad (FDS) de un reactivo, ¿en qué sección encuentra los equipos de protección personal que debe usar?", "type": "mc", "options": ["Identificación del producto", "Controles de exposición / protección personal", "Información sobre el transporte", "Información ecológica"], "correct": 1}, {"id": "bio-s1-q5", "n": 5, "text": "Explique la diferencia entre peligro y riesgo con un ejemplo del laboratorio.", "type": "open", "key": ""}, {"id": "bio-s1-q6", "n": 6, "text": "Explique qué es el punto de inflamación y por qué es importante conocerlo al trabajar con solventes.", "type": "open", "key": ""}, {"id": "bio-s1-q7", "n": 7, "text": "¿Qué EPP usaría para manipular un solvente inflamable y tóxico, y cual es el fin del uso de cada elemento?", "type": "open", "key": ""}, {"id": "bio-s1-q8", "n": 8, "text": "Explique qué es la matriz de compatibilidad de sustancias químicas y para qué se usa en el laboratorio.", "type": "open", "key": ""}, {"id": "bio-s1-q9", "n": 9, "text": "¿Qué condiciones debe cumplir el almacenamiento de sustancias quimicas en el laboratorio?", "type": "open", "key": ""}, {"id": "bio-s1-q10", "n": 10, "text": "En caso de un accidente en el laboratorio, ¿cuáles serían los pasos a seguir y cómo se reporta?", "type": "open", "key": ""}]}, {"title": "Balanza, material y metrología", "questions": [{"id": "bio-s2-q1", "n": 1, "text": "Al terminar de vaciar una pipeta aforada, queda una pequeña gota en la punta. ¿Qué se debe hacer con ella?", "type": "mc", "options": ["Soplarla para que caiga al recipiente", "Dejarla, porque la pipeta ya está calibrada contando con esa gota", "Sacudir la pipeta dentro del recipiente", "Enjuagar la punta con agua destilada dentro del recipiente"], "correct": 1}, {"id": "bio-s2-q2", "n": 2, "text": "Necesita medir exactamente 5 mL de una solución y solo tiene una pipeta aforada de 10 mL. Lo correcto es:", "type": "mc", "options": ["Llenarla hasta la mitad a ojo", "Vaciarla hasta que quede la mitad", "No usarla, porque solo mide 10 mL; buscar una pipeta aforada de 5 mL o una graduada", "Medir 10 mL y luego botar la mitad"], "correct": 2}, {"id": "bio-s2-q3", "n": 3, "text": "¿Qué diferencia existe entre una pipeta aforada clase A de una clase B?", "type": "mc", "options": ["La clase B es más exacta", "La clase A tiene menor tolerancia, por lo que es más exacta", "No hay diferencia en exactitud", "La clase A solo se usa con ácidos"], "correct": 1}, {"id": "bio-s2-q4", "n": 4, "text": "La balanza analítica tiene una resolución de 0,0001 g. ¿Cuál sería el valor correcto para registrar en el formato?", "type": "mc", "options": ["0,25 g", "0,250 g", "0,2500 g", "0,25000 g"], "correct": 2}, {"id": "bio-s2-q5", "n": 5, "text": "Una balanza analítica fue trasladada a otro mesón. Lo correcto es:", "type": "mc", "options": ["Hacer tara y seguir pesando, porque la calibración sigue vigente", "No usarla hasta nivelarla, dejarla estabilizar, ajustarla y verificarla con pesas patrón, porque al moverla pierde su condición de calibración", "Usarla normalmente si enciende sin error", "Solo nivelarla, porque la calibración no se afecta"], "correct": 1}, {"id": "bio-s2-q6", "n": 6, "text": "Explique la diferencia entre calibración y verificación de una balanza.", "type": "open", "key": ""}, {"id": "bio-s2-q7", "n": 7, "text": "Si un equipo tiene certificado de calibración vigente, ¿por qué se debe verificar periódicamente?", "type": "open", "key": ""}, {"id": "bio-s2-q8", "n": 8, "text": "Explique la diferencia entre exactitud y precisión con un ejemplo del laboratorio.", "type": "open", "key": ""}, {"id": "bio-s2-q9", "n": 9, "text": "¿Qué haría si encuentra un equipo con la etiqueta de calibración vencida?", "type": "open", "key": ""}, {"id": "bio-s2-q10", "n": 10, "text": "¿Por qué la temperatura de las muestras afecta las mediciones de volumen y de densidad?", "type": "open", "key": ""}]}, {"title": "Fundamentos de análisis", "questions": [{"id": "bio-s3-q1", "n": 1, "text": "En la titulación de acidez con fenolftaleína, el analista se pasa del punto final y la solución queda rosado intenso. El resultado de acidez será:", "type": "mc", "options": ["Correcto, porque el color confirma el punto final", "Mayor que el real, porque se gastó más titulante del necesario", "Menor que el real, porque el exceso neutraliza la muestra", "No se ve afectado si se registra el volumen exacto"], "correct": 1}, {"id": "bio-s3-q2", "n": 2, "text": "Un aceite vegetal está formado principalmente por:", "type": "mc", "options": ["Ácidos grasos libres", "Triglicéridos", "Ésteres metílicos", "Glicerina libre"], "correct": 1}, {"id": "bio-s3-q3", "n": 3, "text": "El método Karl Fischer se usa para determinar:", "type": "mc", "options": ["La acidez", "Las ppm de agua", "El índice de yodo", "El índice de peróxido"], "correct": 1}, {"id": "bio-s3-q4", "n": 4, "text": "En cromatografía de gases, los componentes de una muestra se separan por:", "type": "mc", "options": ["Su color", "Su volatilidad y su interacción con la columna", "Su densidad", "Su pH"], "correct": 1}, {"id": "bio-s3-q5", "n": 5, "text": "En el Karl Fischer coulométrico, antes de inyectar la muestra la deriva debe estar estable y baja porque:", "type": "mc", "options": ["Indica que el equipo alcanzó la temperatura de trabajo", "Indica que la celda está seca y bien sellada, sin entrada de humedad del ambiente", "Indica que el reactivo está recién cambiado", "Indica la cantidad de agua que tiene la muestra"], "correct": 1}, {"id": "bio-s3-q6", "n": 6, "text": "¿Qué es un reactivo denominado patrón primario y para qué se emplea?", "type": "open", "key": ""}, {"id": "bio-s3-q7", "n": 7, "text": "¿Para qué se corre un blanco y  qué información le da sobre la confiabilidad del resultado ¿", "type": "open", "key": ""}, {"id": "bio-s3-q8", "n": 8, "text": "¿Qué es una curva de calibración y para qué se usa?", "type": "open", "key": ""}, {"id": "bio-s3-q9", "n": 9, "text": "¿Por qué un aceite con exceso de agua o acidez es un problema para procesarlo?", "type": "open", "key": ""}, {"id": "bio-s3-q10", "n": 10, "text": "¿Por qué una muestra se debe homogenizar antes de tomar la porción para el análisis y qué pasa con el resultado si no se hace?", "type": "open", "key": ""}]}, {"title": "Cálculo y registro", "questions": [{"id": "bio-s4-q1", "n": 1, "text": "Al estandarizar el NaOH, el analista obtiene una normalidad real de 0,095 N, pero en los cálculos sigue usando 0,100 N. Sus resultados serán:", "type": "mc", "options": ["Correctos, porque la diferencia es muy pequeña", "Mayores que los reales", "Menores que los reales", "Correctos solo en muestras de baja acidez"], "correct": 1}, {"id": "bio-s4-q2", "n": 2, "text": "Tiene una solución de KOH 0,5 N y necesita preparar 250 mL de KOH 0,1 N. ¿Cuántos mL de la solución 0,5 N debe tomar?", "type": "mc", "options": ["25 mL", "50 mL", "125 mL", "5 mL"], "correct": 1}, {"id": "bio-s4-q3", "n": 3, "text": "Debes analizar 12 muestras por duplicado y correr 2 blancos. Cada análisis gasta 50 mL de alcohol neutralizado y ya tienes 400 mL preparados. ¿Cuánto alcohol adicional debes preparar como mínimo?", "type": "mc", "options": ["800 mL", "900 mL", "1.300 mL", "1.700 mL"], "correct": 1}, {"id": "bio-s4-q4", "n": 4, "text": "Necesitas preparar 1 litro de NaOH 0,5 N. Si su peso molecular es 40 g/mol, calcula cuántos gramos debes pesar.", "type": "mc", "options": ["2,0 g", "10,0 g", "20,0 g", "40,0 g"], "correct": 2}, {"id": "bio-s4-q5", "n": 5, "text": "Un dato quedó mal diligenciado en el informe de análisis. Lo correcto es:", "type": "mc", "options": ["Borrarlo y escribir el correcto", "Corregirlo dejando registro de quién lo cambió, cuándo y por qué", "Dejarlo así y aclararlo de palabra al cliente", "Eliminar el informe completo y hacerlo de nuevo sin dejar registro"], "correct": 1}, {"id": "bio-s4-q6", "n": 6, "text": "Un resultado queda justo en el límite de la especificación. ¿Cómo lo reportaría y qué tendría en cuenta?", "type": "open", "key": ""}, {"id": "bio-s4-q7", "n": 7, "text": "¿Por qué es importante conservar los datos primarios (pesos, volúmenes y los reportes que entrega el equipo) y no solo el resultado final?", "type": "open", "key": ""}, {"id": "bio-s4-q8", "n": 8, "text": "Un análisis por duplicado da 0,152 y 0,198. ¿Qué haría antes de reportar?", "type": "open", "key": ""}, {"id": "bio-s4-q9", "n": 9, "text": "¿Qué datos mínimos debe tener un informe de análisis para que sea válido ante un cliente o una auditoría?", "type": "open", "key": ""}, {"id": "bio-s4-q10", "n": 10, "text": "¿Cómo verificaría que un cálculo hecho en una hoja de Excel del laboratorio está correcto?", "type": "open", "key": ""}]}, {"title": "Procesos y toma de decisiones", "questions": [{"id": "bio-s5-q1", "n": 1, "text": "Te piden analizar unas muestras urgentes en un equipo en el que todavía no has sido capacitado. Lo correcto es:", "type": "mc", "options": ["Usarlo siguiendo el manual por tu cuenta, para no demorar las muestras", "Pedirle a un compañero que te explique rápido y analizar", "Informar al coordinador que no estás capacitado y no analizar hasta estar autorizado", "Analizar y reportar el resultado como preliminar"], "correct": 2}, {"id": "bio-s5-q2", "n": 2, "text": "La verificación del equipo con el material de referencia da fuera de rango, aunque ayer funcionó bien. Lo correcto es:", "type": "mc", "options": ["Analizar las muestras y corregir los resultados después", "No reportar resultados, buscar la causa, corregirla y repetir la verificación", "Repetir la verificación hasta que dé dentro del rango", "Usar los resultados del día anterior"], "correct": 1}, {"id": "bio-s5-q3", "n": 3, "text": "Encuentras que un resultado del turno anterior tiene un error de cálculo y ya fue reportado. Lo correcto es:", "type": "mc", "options": ["Corregirlo tú mismo sin avisar a nadie", "Informar al coordinador para corregir el reporte, dejar trazabilidad y avisar a quien lo recibió", "Dejarlo así, porque ya no es tu turno", "Comentarlo con tu compañero cuando lo veas"], "correct": 1}, {"id": "bio-s5-q4", "n": 4, "text": "La planta pide un resultado antes de que termines el análisis completo. Lo correcto es:", "type": "mc", "options": ["Entregar el dato preliminar como definitivo", "Informar en qué etapa va el análisis y entregar solo resultados confirmados", "Dar un valor estimado según lotes anteriores", "Acortar el procedimiento para terminar antes"], "correct": 1}, {"id": "bio-s5-q5", "n": 5, "text": "Notas que un reactivo se acabará en 3 días, que acción tomarías ¿", "type": "mc", "options": ["Esperar a que se acabe para avisar", "Informar al coordinador con el consumo estimado para gestionar la compra a tiempo", "Diluirlo para que rinda más", "Pedir prestado a otro laboratorio sin dejar registro"], "correct": 1}, {"id": "bio-s5-q6", "n": 6, "text": "Tienes una muestra de despacho, una de proceso con un problema en planta y 5 de rutina. ¿En qué orden las analizas y por qué?", "type": "open", "key": ""}, {"id": "bio-s5-q7", "n": 7, "text": "El resultado de un lote cumple la especificación, pero esta fuera del promedio de los análisis obtenidos de los lotes anteriores ¿Qué harías?", "type": "open", "key": ""}, {"id": "bio-s5-q8", "n": 8, "text": "¿Cómo manejarías la presión de la planta para entregar un resultado más rápido de lo que permite el método?", "type": "open", "key": ""}, {"id": "bio-s5-q9", "n": 9, "text": "Propronga una mejora concreta para que el laboratorio sea más confiable o más eficiente.", "type": "open", "key": ""}, {"id": "bio-s5-q10", "n": 10, "text": "¿Por qué es importante reportar los errores propios y cómo lo harías?", "type": "open", "key": ""}]}, {"title": "Técnicas y unidades de reporte", "questions": [{"id": "bio-s6-q1", "n": 1, "text": "Escriba la unidad en que se reporta cada parámetro.", "type": "uni", "items": [["Acidez (AGL)", "% ácido palmítico"], ["Índice de yodo", "g I₂/100 g"], ["Índice de peróxido", "meq O₂/kg"], ["Humedad por Karl Fischer", "mg/kg (o %)"], ["Color", "Unidades Lovibond (rojo y amarillo)"], ["Impurezas", "%"], ["Perfil de sólidos (SFC)", "% de sólidos a cada temperatura (°C)"]]}, {"id": "bio-s6-q2", "n": 2, "text": "El perfil de ácidos grasos de un aceite se determina por:", "type": "mc", "options": ["Titulación ácido-base", "Cromatografía de gases", "Colorimetría Lovibond", "Karl Fischer"], "correct": 1}, {"id": "bio-s6-q3", "n": 3, "text": "El índice de peróxido se determina por:", "type": "mc", "options": ["Titulación con NaOH y fenolftaleína", "Titulación yodométrica con tiosulfato de sodio", "Cromatografía de gases", "Espectrofotometría"], "correct": 1}, {"id": "bio-s6-q4", "n": 4, "text": "El DOBI se determina por:", "type": "mc", "options": ["Titulación", "Espectrofotometría UV-Visible", "Gravimetría", "Cromatografía"], "correct": 1}, {"id": "bio-s6-q5", "n": 5, "text": "Para reportar el contenido de agua en mg/kg, la técnica adecuada es:", "type": "mc", "options": ["Humedad por estufa", "Karl Fischer", "Titulación ácido-base", "Humedad por balanza halógena"], "correct": 1}, {"id": "bio-s6-q6", "n": 6, "text": "¿Qué diferencia hay entre reportar la acidez como % ácido palmítico y como índice de acidez en mg KOH/g?", "type": "open", "key": ""}, {"id": "bio-s6-q7", "n": 7, "text": "¿Qué información debe tener un certificado de calidad de despacho?", "type": "open", "key": ""}, {"id": "bio-s6-q8", "n": 8, "text": "¿Por qué un certificado debe indicar el método o la norma con que se analizó cada parámetro?", "type": "open", "key": ""}, {"id": "bio-s6-q9", "n": 9, "text": "Un cliente pide la humedad en mg/kg y el laboratorio la tiene en %. ¿Cómo la convierte? Dé un ejemplo.", "type": "open", "key": ""}, {"id": "bio-s6-q10", "n": 10, "text": "Un cliente recibe un certificado de despacho y reclama que uno de los resultados no coincide con el análisis de su propio laboratorio. ¿Qué revisaría usted antes de responderle?", "type": "open", "key": ""}, {"id": "bio-s6-q11", "n": 11, "text": "¿Por qué el material volumétrico no se seca en estufa/horno a alta temperatura?", "type": "open", "key": ""}]}]};
+const MODS = {
+ fq:{name:"Físico-Químico",short:"Físico-Químico (Alimentos)",
+  intro:["Usted está a punto de iniciar la evaluación para el cargo de Analista del Laboratorio Físico-Químico. Este laboratorio respalda la calidad de los productos que llegan a la mesa de miles de familias: aceites, margarinas y grasas que deben cumplir con estándares de inocuidad y calidad.",
+  "Ser analista implica rigor en cada medición, honestidad en cada resultado y compromiso con la seguridad propia y la de sus compañeros. Un dato mal reportado puede detener una planta, afectar un despacho o comprometer la confianza de un cliente.",
+  "Esta evaluación mide sus conocimientos, su criterio y su forma de tomar decisiones. Respóndala con sinceridad y por sus propios medios."],
+  desc:"Seguridad, material volumétrico, análisis de proceso, cálculo y toma de decisiones."},
+ bio:{name:"Biodiésel",short:"Biodiésel",
+  intro:["Usted está a punto de iniciar la evaluación para el cargo de Analista del Laboratorio de Biodiésel. Este laboratorio se prepara para trabajar bajo estándares de acreditación, donde cada resultado debe ser trazable, confiable y defendible ante clientes y entes de control.",
+  "Ser parte de este equipo exige precisión, disciplina, disposición para aprender normas nuevas y la responsabilidad de entender que sus resultados certifican un combustible que se despacha y se usa en el país.",
+  "Esta evaluación mide sus bases técnicas, su criterio y su capacidad para responder ante situaciones reales. Respóndala con sinceridad y por sus propios medios."],
+  desc:"Seguridad, metrología, fundamentos de análisis, cálculo, decisiones, técnicas y unidades de reporte."}
+};
+const PIC_NAMES={explosivo:"Explosivo",inflamable:"Inflamable",comburente:"Comburente",gas:"Gas a presión",corrosivo:"Corrosivo",toxico:"Toxicidad aguda",exclamacion:"Irritante / nocivo",salud:"Peligro grave para la salud",ambiente:"Peligroso para el medio ambiente"};
+const FR='<rect x="18" y="18" width="64" height="64" transform="rotate(45 50 50)" fill="#fff" stroke="#E0201B" stroke-width="7"/>';
+const FL='M50 24c7 11 15 17 13 30a13 13 0 0 1-26 0c0-9 7-13 7-19 4 4 4 9 6 11 2-7 0-15 0-22z';
+const PIC={
+ explosivo:FR+'<circle cx="50" cy="56" r="11" fill="#000"/><path d="M50 30v10M36 36l6 7M64 36l-6 7M30 50h8M62 50h8" stroke="#000" stroke-width="4" stroke-linecap="round"/><circle cx="34" cy="64" r="3" fill="#000"/><circle cx="68" cy="66" r="3" fill="#000"/>',
+ inflamable:FR+'<path d="'+FL+'" fill="#000"/><rect x="33" y="70" width="34" height="4" fill="#000"/>',
+ comburente:FR+'<circle cx="50" cy="61" r="10" fill="none" stroke="#000" stroke-width="5"/><path d="M50 24c5 8 11 12 9 21a9 9 0 0 1-18 0c0-6 5-8 5-13 3 3 3 6 4 7 1-4 0-10 0-15z" fill="#000"/><rect x="33" y="74" width="34" height="4" fill="#000"/>',
+ gas:FR+'<rect x="30" y="44" width="40" height="16" rx="8" fill="#000"/><rect x="70" y="49" width="6" height="6" fill="#000"/>',
+ corrosivo:FR+'<path d="M30 30h12v6l-4 4M58 30h12v6l-4 4" stroke="#000" stroke-width="3" fill="none"/><circle cx="38" cy="47" r="2" fill="#000"/><circle cx="64" cy="47" r="2" fill="#000"/><path d="M26 60h22v5H26zM52 63c6-3 14-3 22 0v6H52z" fill="#000"/>',
+ toxico:FR+'<circle cx="50" cy="42" r="12" fill="#000"/><circle cx="45.5" cy="41" r="3.2" fill="#fff"/><circle cx="54.5" cy="41" r="3.2" fill="#fff"/><path d="M35 58l30 12M65 58L35 70" stroke="#000" stroke-width="5" stroke-linecap="round"/>',
+ exclamacion:FR+'<rect x="46" y="30" width="8" height="28" rx="3" fill="#000"/><circle cx="50" cy="66" r="4.5" fill="#000"/>',
+ salud:FR+'<circle cx="50" cy="32" r="6" fill="#000"/><path d="M38 74V48c0-7 24-7 24 0v26z" fill="#000"/><path d="M50 50l2.2 5h5.3l-4.3 3.2 1.7 5.2-4.9-3.1-4.9 3.1 1.7-5.2-4.3-3.2h5.3z" fill="#fff"/>',
+ ambiente:FR+'<rect x="33" y="40" width="4" height="24" fill="#000"/><path d="M35 28l-9 16h18z" fill="#000"/><path d="M48 62c4-6 16-6 20 0-4 6-16 6-20 0zM68 62l6-4v8z" fill="#000"/><rect x="27" y="69" width="48" height="3" fill="#000"/>'
+};
+const svg=k=>`<svg viewBox="0 0 100 100" role="img" aria-label="Pictograma ${k}">${PIC[k]}</svg>`;
+const ICON={fq:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.5 18.5A2 2 0 0 0 6.2 21.5h11.6a2 2 0 0 0 1.7-3L14 9V3"/><path d="M7.5 15h9"/></svg>',
+bio:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 3-7 6-11z"/><path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5"/></svg>'};
+const $=s=>document.querySelector(s);const app=$('#app');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const L='abcdefgh';
+/* ---------- almacenamiento ---------- */
+let db=null;
+try{if(FIREBASE_CONFIG&&FIREBASE_CONFIG.projectId){firebase.initializeApp(FIREBASE_CONFIG);db=firebase.firestore();}}catch(e){console.warn(e)}
+const LS='eval_analistas_local';
+const lsGet=()=>{try{return JSON.parse(localStorage.getItem(LS)||'[]')}catch(e){return[]}};
+const lsSet=v=>{try{localStorage.setItem(LS,JSON.stringify(v))}catch(e){}};
+async function saveResult(r){if(db){const ref=await db.collection(COLECCION).add(r);return ref.id}const all=lsGet();r._id='L'+Date.now();all.push(r);lsSet(all);return r._id}
+async function listResults(){if(db){const s=await db.collection(COLECCION).get();return s.docs.map(d=>({...d.data(),_id:d.id}))}return lsGet()}
+async function updateManual(id,manual){if(db){await db.collection(COLECCION).doc(id).update({manual});return}const all=lsGet();const r=all.find(x=>x._id===id);if(r){r.manual=manual;lsSet(all)}}
+
+/* ---------- control de salidas ---------- */
+let MON=null;
+function monStart(){MON={salidas:0,tiempoFuera:0,eventos:[],pegados:0,_t:null};
+ document.addEventListener('visibilitychange',onVis);window.addEventListener('blur',onBlur);window.addEventListener('focus',onFocus);
+ document.addEventListener('copy',blockEv);document.addEventListener('cut',blockEv);document.addEventListener('paste',onPaste);document.addEventListener('contextmenu',blockEv);document.body.classList.add('noselect');}
+function monStop(){document.removeEventListener('visibilitychange',onVis);window.removeEventListener('blur',onBlur);window.removeEventListener('focus',onFocus);
+ document.removeEventListener('copy',blockEv);document.removeEventListener('cut',blockEv);document.removeEventListener('paste',onPaste);document.removeEventListener('contextmenu',blockEv);document.body.classList.remove('noselect');}
+function blockEv(e){e.preventDefault()}
+function onPaste(e){e.preventDefault();MON.pegados++;MON.eventos.push({tipo:'pegar',hora:new Date().toISOString()})}
+function leave(){if(!MON||MON._t)return;MON._t=Date.now();MON.salidas++;MON.eventos.push({tipo:'salida',hora:new Date().toISOString()})}
+function back(){if(!MON||!MON._t)return;const seg=Math.round((Date.now()-MON._t)/1000);MON.tiempoFuera+=seg;MON.eventos[MON.eventos.length-1].segundos=seg;MON._t=null;if(MON.salidas>=MAX_SALIDAS){finish(true);return}showWarn()}
+function onVis(){document.hidden?leave():back()}
+function onBlur(){leave()}function onFocus(){back()}
+function showWarn(){if(document.querySelector('.warnbox'))return;const d=document.createElement('div');d.className='warnbox';
+ d.innerHTML=`<div class="card"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#e0a83a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4.5M12 17.5v.01"/></svg>
+ <h3>Salió de la evaluación</h3><p>Se registró que salió de la evaluación (${MON.salidas} de ${MAX_SALIDAS}). ${MAX_SALIDAS-MON.salidas===1?'Si vuelve a salir una vez más, la evaluación se cerrará y se enviará tal como está.':'Le quedan '+(MAX_SALIDAS-MON.salidas)+' salidas antes de que la evaluación se cierre y se envíe tal como está.'}</p><button class="btn">Volver a la evaluación</button></div>`;
+ document.body.appendChild(d);d.querySelector('button').onclick=()=>d.remove();}
+/* ---------- estado ---------- */
+let S={};
+function maxPts(q){return q.type==='mc'?1:q.type==='open'?3:q.items.length}
+function home(){
+ document.body.className='';window.scrollTo(0,0);
+ app.innerHTML=`<div class="wrap">
+ <div class="brand"><span class="dot"></span>OLEOFLORES S.A.S. · Laboratorios de calidad</div>
+ <section class="hero"><h1>Evaluación de analistas</h1>
+ <p>Elija el laboratorio al que aspira. Antes de empezar verá qué implica el cargo y la responsabilidad que conlleva.</p></section>
+ <div class="mods">${['fq','bio'].map(m=>{const n=BANK[m].reduce((a,s)=>a+s.questions.length,0);return`
+  <button class="mod ${m}" data-m="${m}"><span class="sh"></span><div class="ico">${ICON[m]}</div>
+  <h2>${MODS[m].name}</h2><p>${MODS[m].desc}</p>
+  <div class="stats"><span><b>${BANK[m].length}</b>secciones</span><span><b>${n}</b>preguntas</span></div>
+  <span class="go">Ver detalles del cargo</span></button>`}).join('')}</div>
+ <div class="foot"><span>Las secciones, preguntas y opciones aparecen en orden distinto para cada aspirante.</span><button class="link" id="adm">Administrador</button></div></div>`;
+ app.querySelectorAll('.mod').forEach(b=>b.onclick=()=>intro(b.dataset.m));
+ $('#adm').onclick=adminLogin;
+}
+function intro(m){
+ document.body.className='m-'+m;window.scrollTo(0,0);
+ app.innerHTML=`<div class="wrap"><div class="panel intro">
+ <span class="tag">${MODS[m].short}</span>
+ <h2>Antes de comenzar, conozca lo que implica este cargo</h2>
+ ${MODS[m].intro.map(p=>`<p>${p}</p>`).join('')}
+ <p style="color:#e8c98a">Durante la evaluación no salga de esta pantalla ni cambie de aplicación. Cada salida queda registrada con la hora y el tiempo fuera, y se reporta al laboratorio. Al salir ${MAX_SALIDAS} veces, la evaluación se cierra y se envía tal como esté. Tampoco se permite copiar ni pegar.</p>
+ <blockquote>Muchos serán los llamados y pocos los escogidos.</blockquote>
+ <div class="row"><button class="btn" id="acc">Acepto y deseo continuar</button><button class="btn ghost" id="back">Volver</button></div></div></div>`;
+ $('#acc').onclick=()=>datos(m);$('#back').onclick=home;
+}
+function datos(m){
+ window.scrollTo(0,0);
+ app.innerHTML=`<div class="wrap"><div class="reg">
+ <div class="ico">${ICON[m]}</div>
+ <span class="tag">${MODS[m].short}</span>
+ <h2>Sus datos</h2>
+ <p class="sub">Regístrese para iniciar la evaluación. Estos datos identifican sus respuestas.</p>
+ <div class="form">
+ <label class="fld"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><input id="nom" autocomplete="name" placeholder="Nombre completo" aria-label="Nombre completo"></label>
+ <label class="fld"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="12" r="2.2"/><path d="M14 10h4M14 14h3"/></svg><input id="ced" inputmode="numeric" placeholder="Número de cédula" aria-label="Cédula"></label>
+ <label class="fld"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18"/></svg><input id="car" placeholder="Cargo actual" aria-label="Cargo actual"></label>
+ <div class="msg" id="msg"></div>
+ <button class="btn" id="ini">Iniciar evaluación</button>
+ </div>
+ <button class="link back" id="back">Volver</button>
+ <div class="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Sus respuestas son confidenciales y solo las revisa el laboratorio.</div>
+ </div></div>`;
+ $('#back').onclick=()=>intro(m);
+ $('#ced').oninput=e=>e.target.value=e.target.value.replace(/\D/g,'');
+ $('#ini').onclick=()=>{const n=$('#nom').value.trim(),c=$('#ced').value.trim(),g=$('#car').value.trim();
+  if(!n||!c||!g){$('#msg').textContent='Complete nombre, cédula y cargo actual para continuar.';return}
+  start(m,{nombre:n,cedula:c,cargo:g})};
+}
+function start(m,who){
+ const secs=shuffle(BANK[m].map((s,i)=>({...s,i}))).map(s=>({title:s.title,i:s.i,qs:shuffle(s.questions).map(q=>q.type==='mc'?{...q,order:shuffle(q.options.map((_,k)=>k))}:q.type==='pic'?{...q,order:shuffle(q.items)}:q)}));
+ S={m,who,secs,cur:0,ans:{},t0:new Date().toISOString()};monStart();render();
+}
+function render(){
+ const s=S.secs[S.cur],tot=S.secs.length;window.scrollTo(0,0);
+ let qn=0;
+ app.innerHTML=`<div class="top"><div class="in"><span class="t"><b>${MODS[S.m].name}</b> · Sección ${S.cur+1} de ${tot}</span><span class="t">${esc(S.who.nombre)}</span></div><div class="bar"><i style="width:${(S.cur/tot)*100}%"></i></div></div>
+ <div class="wrap sec"><span class="k">Sección ${S.cur+1} de ${tot}</span><h2>${esc(s.title)}</h2>
+ ${s.qs.map(q=>{qn++;const a=S.ans[q.id];let body='';
+  if(q.type==='mc')body=q.order.map((k,j)=>`<label class="opt ${a===k?'on':''}"><input type="radio" name="${q.id}" value="${k}" ${a===k?'checked':''}><span class="l">${L[j]}</span><span>${esc(q.options[k])}</span></label>`).join('');
+  else if(q.type==='open')body=`<textarea data-id="${q.id}" placeholder="Escriba su respuesta con sus propias palabras">${esc(a||'')}</textarea>`;
+  else if(q.type==='pic')body=`<div class="grid">${q.order.map((k,j)=>`<div class="pic">${svg(k)}<input data-id="${q.id}" data-k="${k}" placeholder="Nombre ${j+1}" value="${esc((a||{})[k]||'')}"></div>`).join('')}</div>`;
+  else if(q.type==='uni')body=`<div class="uni">${q.items.map((it,j)=>`<span>${esc(it[0])}</span><input data-id="${q.id}" data-k="${j}" placeholder="Unidad" value="${esc((a||{})[j]||'')}">`).join('')}</div>`;
+  return`<div class="q"><div class="n">Pregunta ${qn} de ${s.qs.length}${q.type==='open'?' · Respuesta abierta':''}</div><h3>${esc(q.text)}</h3>${body}</div>`}).join('')}
+ <div class="msg" id="msg"></div>
+ <div class="nav">${S.cur>0?'<button class="btn ghost" id="prev">Sección anterior</button>':'<span></span>'}<button class="btn" id="next">${S.cur<tot-1?'Siguiente sección':'Finalizar evaluación'}</button></div></div>`;
+ app.querySelectorAll('.opt input').forEach(r=>r.onchange=()=>{S.ans[r.name]=+r.value;r.closest('.q').querySelectorAll('.opt').forEach(o=>o.classList.toggle('on',o.contains(r)))});
+ app.querySelectorAll('textarea').forEach(t=>t.oninput=()=>S.ans[t.dataset.id]=t.value);
+ app.querySelectorAll('.pic input,.uni input').forEach(i=>i.oninput=()=>{(S.ans[i.dataset.id]=S.ans[i.dataset.id]||{})[i.dataset.k]=i.value});
+ if($('#prev'))$('#prev').onclick=()=>{S.cur--;render()};
+ $('#next').onclick=()=>{
+  const miss=s.qs.filter(q=>q.type==='mc'?S.ans[q.id]===undefined:q.type==='open'?!(S.ans[q.id]||'').trim():false).length;
+  if(miss&&!$('#next').dataset.warn){$('#msg').textContent=`Tiene ${miss} pregunta(s) sin responder en esta sección. Revíselas o pulse de nuevo para continuar.`;$('#next').dataset.warn=1;return}
+  if(S.cur<tot-1){S.cur++;render()}else finish()};
+}
+async function finish(forzado){
+ if(S.enviando)return;S.enviando=1;const nx=$('#next');if(nx){nx.disabled=true;nx.textContent='Enviando…'}
+ let auto=0,autoMax=0;BANK[S.m].forEach(s=>s.questions.forEach(q=>{if(q.type==='mc'){autoMax++;if(S.ans[q.id]===q.correct)auto++}}));
+ const r={modulo:S.m,...S.who,inicio:S.t0,fin:new Date().toISOString(),ordenSecciones:S.secs.map(s=>s.i+1),respuestas:S.ans,auto,autoMax,manual:{},control:{cerradaPorSalidas:!!forzado,salidas:MON.salidas,tiempoFueraSeg:MON.tiempoFuera,pegados:MON.pegados,eventos:MON.eventos}};
+ try{await saveResult(r)}catch(e){S.enviando=0;if(nx){nx.disabled=false;nx.textContent='Finalizar evaluación'}if($('#msg'))$('#msg').textContent='No se pudo enviar la evaluación. Revise la conexión e intente de nuevo.';else alert('No se pudo enviar la evaluación. Revise la conexión.');return}
+ monStop();document.querySelector('.warnbox')?.remove();document.querySelector('.top')?.remove();window.scrollTo(0,0);
+ if(forzado){document.body.className='';app.innerHTML=`<div class="wrap"><div class="panel done void"><div class="seal"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff5f50" stroke-width="2.2" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg></div>
+ <span class="k2">Evaluación anulada</span>
+ <h2>Su evaluación fue anulada</h2>
+ <p>Se incumplieron las condiciones que usted aceptó al iniciar: salió de la pantalla de evaluación ${MAX_SALIDAS} veces.</p>
+ <div class="why">La evaluación quedó cerrada y el incumplimiento fue reportado al laboratorio con la hora de cada salida. No es posible continuar con esta evaluación. Comuníquese con el responsable de la evaluación.</div></div></div>`;return}
+ app.innerHTML=`<div class="wrap"><div class="panel done"><div class="seal"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--acc)"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+ <h2>Muchas gracias por su participación</h2><p>Sus respuestas fueron enviadas. El equipo del laboratorio se comunicará con usted.</p></div></div>`;
+}
+/* ---------- administrador ---------- */
+function adminLogin(){
+ document.body.className='m-adm';window.scrollTo(0,0);
+ app.innerHTML=`<div class="wrap"><div class="reg adm">
+ <div class="ico adm-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+ <span class="tag">Laboratorios OLEOFLORES</span>
+ <h2>Acceso de administrador</h2>
+ <p class="sub">Ingrese la clave para ver y calificar los resultados de Físico-Químico y Biodiésel.</p>
+ <div class="form">
+ <label class="fld"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><input id="pw" type="password" placeholder="Clave de acceso" aria-label="Clave" autocomplete="current-password"><button type="button" class="eye" id="eye" aria-label="Mostrar clave"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></label>
+ <div class="msg" id="msg"></div>
+ <button class="btn" id="in">Entrar al panel</button>
+ </div>
+ <button class="link back" id="back">Volver al inicio</button>
+ </div></div>`;
+ $('#back').onclick=home;
+ $('#eye').onclick=()=>{const i=$('#pw');i.type=i.type==='password'?'text':'password';i.focus()};
+ const go=()=>{if($('#pw').value===ADMIN_PASS)admin('fq');else{$('#msg').textContent='Clave incorrecta.';const r=document.querySelector('.reg');r.classList.remove('shake');void r.offsetWidth;r.classList.add('shake')}};
+ $('#in').onclick=go;$('#pw').onkeydown=e=>{e.key==='Enter'&&go()};setTimeout(()=>$('#pw').focus(),50);
+}
+let RES=[];
+function totals(r){const all=BANK[r.modulo].flatMap(s=>s.questions);const max=all.reduce((a,q)=>a+maxPts(q),0);const man=Object.values(r.manual||{}).reduce((a,v)=>a+(+v||0),0);const pend=all.filter(q=>q.type!=='mc'&&(r.manual||{})[q.id]===undefined).length;return{max,tot:r.auto+man,pct:(r.auto+man)/max*100,pend}}
+async function admin(m){
+ document.body.className='m-'+m;window.scrollTo(0,0);
+ app.innerHTML=`<div class="wrap"><div class="row" style="justify-content:space-between"><h2 style="font-size:30px">Resultados</h2><button class="btn ghost" id="out">Salir</button></div>
+ <div class="tabs"><button data-m="fq" class="${m==='fq'?'on':''}">Físico-Químico</button><button data-m="bio" class="${m==='bio'?'on':''}">Biodiésel</button></div>
+ <div class="panel"><div id="tb">Cargando…</div></div>${db?'':'<p class="foot">Modo prueba: los resultados se guardan solo en este navegador. Configure Firebase para centralizarlos.</p>'}</div>`;
+ $('#out').onclick=home;app.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>admin(b.dataset.m));
+ try{RES=await listResults()}catch(e){$('#tb').textContent='No se pudieron cargar los resultados.';return}
+ const L2=RES.filter(r=>r.modulo===m).map(r=>({r,...totals(r)})).sort((a,b)=>(!!a.r.control?.cerradaPorSalidas-!!b.r.control?.cerradaPorSalidas)||b.pct-a.pct);
+ $('#tb').innerHTML=L2.length?`<div class="tw"><table><thead><tr><th>#</th><th>Aspirante</th><th>Cédula</th><th>Fecha</th><th>Selección múltiple</th><th>Total</th><th>Por calificar</th><th>Salidas</th><th></th></tr></thead><tbody>
+ ${L2.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.r.nombre)}<br><small style="color:var(--mute)">${esc(x.r.cargo)}</small></td><td>${esc(x.r.cedula)}</td><td>${new Date(x.r.fin).toLocaleString('es-CO')}</td><td>${x.r.auto}/${x.r.autoMax}</td><td>${x.r.control?.cerradaPorSalidas?'<span class="flag">Anulada</span>':`<b>${x.tot}/${x.max}</b> (${x.pct.toFixed(1).replace('.',',')} %)`}</td><td>${x.pend?x.pend+' pendientes':'<span class="ok">Completo</span>'}</td><td>${(x.r.control?.salidas||0)?`<span class="flag">${x.r.control.salidas} · ${fmtT(x.r.control.tiempoFueraSeg)}${x.r.control.cerradaPorSalidas?' · anulada':''}</span>`:'<span class="ok">0</span>'}</td><td><button class="link" data-id="${x.r._id}">Calificar</button></td></tr>`).join('')}</tbody></table></div>`:'<p style="color:var(--mute)">Aún no hay evaluaciones en este módulo.</p>';
+ app.querySelectorAll('#tb .link').forEach(b=>b.onclick=()=>detail(b.dataset.id));
+}
+const ctl=r=>{const c=r.control||{};const cz=c.cerradaPorSalidas?'<p style="margin:8px 0 0"><span class="flag">Evaluación anulada por incumplimiento (salidas)</span></p>':'';if(!c.salidas&&!c.pegados)return'<p class="ok" style="margin:8px 0 0">No salió de la evaluación.</p>';return cz+`<p style="margin:8px 0 0"><span class="flag">Salió ${c.salidas} ${c.salidas===1?'vez':'veces'} · ${fmtT(c.tiempoFueraSeg)} fuera${c.pegados?' · '+c.pegados+' intentos de pegar':''}</span></p><p style="color:var(--mute);font-size:13px;margin:6px 0 0">${(c.eventos||[]).map(e=>new Date(e.hora).toLocaleTimeString('es-CO')+(e.tipo==='pegar'?' (intentó pegar)':' ('+fmtT(e.segundos)+' fuera)')).join(' · ')}</p>`};
+const fmtT=s=>{s=s||0;return s<60?s+' s':Math.floor(s/60)+' min '+(s%60)+' s'};
+function detail(id){
+ const r=RES.find(x=>x._id===id);const man={...(r.manual||{})};window.scrollTo(0,0);
+ app.innerHTML=`<div class="wrap det"><div class="row" style="justify-content:space-between;margin-bottom:20px"><div><h2 style="font-size:26px">${esc(r.nombre)}</h2><p style="color:var(--mute);margin:6px 0 0">${esc(r.cedula)} · ${esc(r.cargo)} · Orden de secciones: ${(r.ordenSecciones||[]).join(', ')}</p>${ctl(r)}</div><button class="btn ghost" id="back">Volver al ranking</button></div>
+ ${BANK[r.modulo].map((s,si)=>`<h3 style="margin:26px 0 12px;font-size:19px">Sección ${si+1}. ${esc(s.title)}</h3>${s.questions.map(q=>{const a=r.respuestas[q.id];let b='';
+  if(q.type==='mc')b=`<div>Respondió: <span class="${a===q.correct?'ok':'no'}">${a===undefined?'Sin respuesta':esc(q.options[a])}</span></div>${a===q.correct?'':`<div style="color:var(--mute);margin-top:4px">Correcta: ${esc(q.options[q.correct])}</div>`}`;
+  else if(q.type==='open')b=`<div class="ans">${esc(a||'Sin respuesta')}</div>${q.key?`<div style="color:var(--mute);font-size:14px">Referencia: ${esc(q.key)}</div>`:''}`;
+  else if(q.type==='pic')b=`<div class="tw"><table>${q.items.map(k=>`<tr><td style="width:70px">${svg(k).replace('<svg','<svg style="width:48px;height:48px"')}</td><td>${esc((a||{})[k]||'—')}</td><td style="color:var(--mute)">${PIC_NAMES[k]}</td></tr>`).join('')}</table></div>`;
+  else b=`<div class="tw"><table>${q.items.map((it,j)=>`<tr><td>${esc(it[0])}</td><td>${esc((a||{})[j]||'—')}</td><td style="color:var(--mute)">${esc(it[1])}</td></tr>`).join('')}</table></div>`;
+  const sc=q.type==='mc'?'':`<div class="score">Puntaje (0 a ${maxPts(q)}): <input type="number" min="0" max="${maxPts(q)}" step="1" data-id="${q.id}" value="${man[q.id]??''}"></div>`;
+  return`<div class="q"><div class="n">Pregunta ${q.n}</div><h3>${esc(q.text)}</h3>${b}${sc}</div>`}).join('')}`).join('')}
+ <div class="msg" id="msg"></div><div class="nav"><span></span><button class="btn" id="sv">Guardar calificación</button></div></div>`;
+ $('#back').onclick=()=>admin(r.modulo);
+ app.querySelectorAll('.score input').forEach(i=>i.oninput=()=>{const v=i.value===''?undefined:Math.max(0,Math.min(+i.max,Math.round(+i.value)));if(v===undefined)delete man[i.dataset.id];else man[i.dataset.id]=v});
+ $('#sv').onclick=async()=>{try{await updateManual(id,man);r.manual=man;$('#msg').style.color='#7fe0a5';$('#msg').textContent='Calificación guardada.'}catch(e){$('#msg').textContent='No se pudo guardar. Intente de nuevo.'}};
+}
+home();
+</script>
+</body>
+</html>
